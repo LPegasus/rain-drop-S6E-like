@@ -1,0 +1,42 @@
+.lp-rd {
+  position: relative;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.lp-rd, .lp-rd * {
+  box-sizing: border-box;
+}
+
+.lp-rd .lp-rd-mask{
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  border-radius: 5px;
+  top: 0;
+  left: 0;
+  -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+}
+
+.lp-rd .lp-rd-mask:after{
+  clear: both;
+}
+
+.lp-rd .lp-rd-mask .lp-drop {
+  z-index: 5;
+  transition: opacity .5s linear, transform 0s ease-in .5s;
+  opacity: 0;
+  display: block;
+  position: absolute;
+  will-change: transform, opacity, width, height;
+  border-radius: 50% 50%;
+}
+
+.lp-rd .lp-rd-mask.active .lp-drop {
+  transition: transform .9s ease-out, opacity .7s linear;
+  opacity: .4;
+}
