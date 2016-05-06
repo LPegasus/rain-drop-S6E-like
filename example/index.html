@@ -27,7 +27,7 @@
 </head>
 
 <body>
-  <div style="height: 100px;"> </div>
+  <div style="height: 1000px;"> </div>
   <div class="lp-rd button">
     test
   </div>
@@ -46,7 +46,7 @@
     }
     
     function init (e) {
-      lp_rd.init(this);
+      lp_rd.init(this, true);
       document.removeEventListener('DOMContentLoaded', init);
     }
   }();

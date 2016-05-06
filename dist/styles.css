@@ -37,6 +37,6 @@
 }
 
 .lp-rd .lp-rd-mask.active .lp-drop {
-  transition: transform .9s ease-out, opacity .7s linear;
+  transition: transform .9s ease-out, opacity .2s ease-out;
   opacity: .4;
 }

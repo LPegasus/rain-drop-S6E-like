@@ -38,7 +38,7 @@
     isTouch = isTouch || forceMobile;
     if (range.nodeType != 9
       && range.nodeType != 1) return this;
-    this.eventType = isTouch ? ['touchstart', 'touchend', 'touchmove'] : ['mousedown', 'mouseup', 'dragstart'];
+    this.eventType = isTouch ? ['touchstart', 'touchend', 'select'] : ['mousedown', 'mouseup', 'dragstart'];
     this.evHandler = { up: null, down: null, drag: null };
     window.addEventListener(this.eventType[0], this.evHandler.down = rdActionAsync(this));
     window.addEventListener(this.eventType[1], this.evHandler.up = antiRdActionAsync(this));
@@ -87,7 +87,6 @@
         _dom.classList.add('active');
         var _rd = _dom.querySelector('.lp-drop');
         var _r = _rd.getAttribute('data-rd-radius');
-        //_rd.style.transform = 'scale3d(1, 1, 1) translate3d(-' + r + 'px, -' + r + 'px,0)';
         _rd.style.transform = 'scale3d(1, 1, 1)';
       });
     }
