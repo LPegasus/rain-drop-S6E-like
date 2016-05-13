@@ -1,4 +1,5 @@
 ; (function () {
+  var canUseShadowDOM = 'function' === typeof document.documentElement.createShadowRoot;
   var isTouch = !!window.ontouchstart;
   function LP_RD() {
     this.version = '0.0.1';
@@ -38,7 +39,7 @@
     isTouch = isTouch || forceMobile;
     if (range.nodeType != 9
       && range.nodeType != 1) return this;
-    this.eventType = isTouch ? ['touchstart', 'touchend', 'select'] : ['mousedown', 'mouseup', 'dragstart'];
+    this.eventType = isTouch ? ['touchstart', 'touchend', 'selectstart'] : ['mousedown', 'mouseup', 'selectstart'];
     this.evHandler = { up: null, down: null, drag: null };
     window.addEventListener(this.eventType[0], this.evHandler.down = rdActionAsync(this));
     window.addEventListener(this.eventType[1], this.evHandler.up = antiRdActionAsync(this));
@@ -72,7 +73,6 @@
       r = Math.sqrt(delta[0] * delta[0] + delta[1] * delta[1]);
       x = x - r;
       y = y - r;
-      _dom = _createRDDOM(x, y, r);
 
       var drops;
       if ((drops = Array.prototype.slice.call(tar.querySelectorAll('.lp-rd-mask')), 0).length) {
@@ -80,7 +80,12 @@
           d.remove();
         });
       }
+      
+      _dom = _createRDDOM(x, y, r);
 
+      /*if (canUseShadowDOM) {
+        tar = tar.createShadowRoot();
+      }*/
       tar.appendChild(_dom);
       this.doms.push({ status: 'active', dom: _dom });
       requestAnimationFrame(function () {
@@ -99,7 +104,8 @@
         datum.status = 'closing';
         d.classList.remove('active');
         rd = d.querySelector('.lp-drop');
-        _resetDropDOM(rd, null, null, 1);
+        var r = rd.getAttribute('data-rd-radius');
+        _resetDropDOM(rd, null, null, parseInt(r));
         rd.addEventListener('transitionend', function (e) {
           e.currentTarget.parentElement.remove();
         });
@@ -137,8 +143,9 @@
   }
 
   function _resetDropDOM(rd, x, y, r) {
+    var radius = r == 0 ? 0: 1 / r;
     _resetPosition(rd, x, y);
-    rd.style.transform = 'scale3d(' + (1 / r) + ',' + (1 / r) + ',1)';
+    rd.style.transform = 'scale3d(' + radius + ',' + radius + ',1)';
   }
 
   function _clear() {

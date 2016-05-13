@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<head>
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <title>example shadow</title>
+  <script src="../dist/lp_raindrop_shadow_dom.js"></script>
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+      background-color: #ccc;
+    }
+    
+    div.button {
+      background-color: #f40fd0;
+      height: 25rem;
+      width: 100%;
+      line-height: 100%;
+      overflow: hidden;
+      text-align: center;
+      color: #fff;
+      font-size: 2rem;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+  <div style="height: 1000px;"> </div>
+  <div class="lp-rd button">
+    test
+  </div>
+  <div style="display:flex;margin-top: 15px;">
+    <button style="flex:1;" class="lp-rd">BUTTON1</button>
+    <button style="flex:1;" class="lp-rd">BUTTON2</button>
+  </div>
+</body>
+<script type="text/javascript">
+  ~function(){
+    if (document.readyState == 'complete') {
+      init();
+    }
+    else {
+      document.addEventListener('DOMContentLoaded', init);
+    }
+    
+    function init (e) {
+      lp_rd.init(this, true);//arg0: root dom to be scanned; arg1: as if running in mobile device
+      document.removeEventListener('DOMContentLoaded', init);
+    }
+  }();
+</script>
